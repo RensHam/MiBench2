@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../bareBench.h"
+//#include "../bareBench.h"
 #include <math.h>
 // #include <signal.h>
 #include <stdio.h>
@@ -665,7 +665,7 @@ int main (void) {
 
     int cnt;
     printf("Plaintext:\n\r");
-    for(cnt = 0; cnt < KEYLEN; ++cnt)
+    for (cnt = 0; cnt < KEYLEN; ++cnt)
       printf("0x%08X\n\r", plaintext[cnt]);
 
     test_rsa_encrypt();
@@ -674,11 +674,14 @@ int main (void) {
     for(cnt = 0; cnt < KEYLEN; ++cnt)
       printf("0x%08X\n\r", ciphertext[cnt]);
 
-    return 11;
-}
+    
     for(cnt = 0; cnt < KEYLEN; ++cnt) {
         if (ciphertext[cnt] != correct[cnt]) {
-            test_error("Incorrect ciphertext\n");
+            printf("Incorrect ciphertext\n");
+            return 11;
         }
     }
+    return 0;
+}
+    
 
