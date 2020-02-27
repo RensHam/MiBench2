@@ -32,7 +32,8 @@ typedef struct _QITEM QITEM;
  * NUM_NODES + (NUM_NODES - 1) + ... + 2 + 1 ~= (NUM_NODES * NUM_NODES / 2)
  */
 #define ARRAY_SIZE (NUM_NODES * NUM_NODES / 2)
-QITEM allocated[ARRAY_SIZE];
+//QITEM allocated[ARRAY_SIZE];
+QITEM allocated[100];
 QITEM *qHead = NULL;
 int notAll = 0;
 
@@ -61,8 +62,8 @@ void enqueue (int iNode, int iDist, int iPrev)
   
   if (notAll >= ARRAY_SIZE) 
     {
-      //printf("Out of memory.\n");
-      exit(1);
+      printf("Out of memory.\n");
+      return;
     }
   qNew->iNode = iNode;
   qNew->iDist = iDist;
