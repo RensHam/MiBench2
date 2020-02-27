@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../bareBench.h"
+//#include "../bareBench.h"
 #include "input.h"
 
 #define NUM_NODES                          100
@@ -49,8 +49,8 @@ void print_path (NODE *rgnNodes, int chNode)
     {
       print_path(rgnNodes, rgnNodes[chNode].iPrev);
     }
-  //printf (" %d", chNode);
-  fflush(stdout);
+  printf (" %d\n", chNode);
+  //fflush(stdout);
 }
 
 void enqueue (int iNode, int iDist, int iPrev)
@@ -152,8 +152,7 @@ int dijkstra(int chStart, int chEnd)
 
 int main(int argc, char *argv[]) {
   int i,j;
-  initLED();
-  LED(1);
+  printf("1\n");
    /* make a fully connected matrix */
    // see input.h
   /* finds 10 shortest paths between nodes */
@@ -161,6 +160,6 @@ int main(int argc, char *argv[]) {
 			j=j%NUM_NODES;
       dijkstra(i,j);
   }
-  LED(1);
+  printf("DONE\n");
   return 0;
 }
