@@ -6,7 +6,7 @@
 FILE *fpin,*fpout;
 
 unsigned int dlen;
-unsigned char data[100000];
+unsigned char data[10000];
 
 int main ( void )
 {

@@ -8,4 +8,5 @@ include_directories(
 )
 
 add_subdirectory(aes)
+add_subdirectory(picojpeg)
 
