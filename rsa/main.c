@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../bareBench.h"
+//#include "../bareBench.h"
 #include <math.h>
 // #include <signal.h>
 #include <stdio.h>
@@ -40,18 +40,19 @@
  *   <will output n and e>
 */   
 #define KEYLEN 4
+#define EXPLEN 2
 uint16_t n[KEYLEN];
-uint16_t e[2];
+uint16_t e[EXPLEN];
 uint16_t plaintext[KEYLEN];
 uint16_t ciphertext[KEYLEN];
 
 /* would be nice if we could use malloc instead of globals here */
-uint16_t _tmpglobal_ab[2*KEYLEN];
+uint16_t _tmpglobal_ab[2*KEYLEN+1];
 uint16_t _tmpglobal_q[KEYLEN];
-uint16_t _tmpglobal_x[2*KEYLEN];
-uint16_t _tmpglobal_ybnt[2*KEYLEN];
-uint16_t _tmpglobal_ybit[2*KEYLEN];
-uint16_t _tmpglobal_qitybit[2*KEYLEN];
+uint16_t _tmpglobal_x[2*KEYLEN+1];
+uint16_t _tmpglobal_ybnt[2*KEYLEN+1];
+uint16_t _tmpglobal_ybit[2*KEYLEN+1];
+uint16_t _tmpglobal_qitybit[2*KEYLEN+1];
 uint16_t _tmpglobal_temp[KEYLEN];
 
 /**
@@ -637,11 +638,13 @@ void mod_exp(uint16_t * A, uint16_t * g, uint16_t * e, uint16_t e_length,
 }
 
 void test_rsa_encrypt(){
-    mod_exp(ciphertext, plaintext, e, 1, n, KEYLEN);
+    mod_exp(ciphertext, plaintext, e, EXPLEN, n, KEYLEN);
 }
 
 int main (void) {
     /* see above comment about generating these */
+    uint16_t correct[KEYLEN];
+
     n[0] = 0xab78; n[1] = 0xafba; n[2] = 0x88e7; n[3] = 0x496d;
     e[0] = 0x0001; e[1] = 0x0001; // e = 65537
 
@@ -650,9 +653,19 @@ int main (void) {
     plaintext[2] = 0x6e74; // nt
     plaintext[3] = 0x6f73; // os
 
+    /*
+     * 0x6f736e746d654d65^0x10001
+     * mod 0x496d88e7afbaab78
+     * = 0x1b3b820edcb4827d
+     */
+    correct[0] = 0x827d;
+    correct[1] = 0xdcb4;
+    correct[2] = 0x820e;
+    correct[3] = 0x1b3b;
+
     int cnt;
     printf("Plaintext:\n\r");
-    for(cnt = 0; cnt < KEYLEN; ++cnt)
+    for (cnt = 0; cnt < KEYLEN; ++cnt)
       printf("0x%08X\n\r", plaintext[cnt]);
 
     test_rsa_encrypt();
@@ -661,5 +674,14 @@ int main (void) {
     for(cnt = 0; cnt < KEYLEN; ++cnt)
       printf("0x%08X\n\r", ciphertext[cnt]);
 
-    return 11;
+    
+    for(cnt = 0; cnt < KEYLEN; ++cnt) {
+        if (ciphertext[cnt] != correct[cnt]) {
+            printf("Incorrect ciphertext\n");
+            return 11;
+        }
+    }
+    return 0;
 }
+    
+

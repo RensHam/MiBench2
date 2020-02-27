@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../bareBench.h"
+//#include "../bareBench.h"
 #include "input.h"
 
 #define NUM_NODES                          100
@@ -21,8 +21,21 @@ struct _QITEM
 };
 typedef struct _QITEM QITEM;
 
+/*
+ * Dijkstra's algorithm calculates the shortest path between two nodes
+ * by calculating the shortest path from 1 node to all the other nodes.
+ * At the Nth step, the algorithm "visits" the closest node to
+ * any of the N already visited nodes.
+ * Then, the algorithm checks the (NUM_NODES - N) unvisited nodes and
+ * adds a node to the queue if a shorter path to that node is found.
+ * Thus, the maximum number of nodes that could be added to the queue is
+ * NUM_NODES + (NUM_NODES - 1) + ... + 2 + 1 ~= (NUM_NODES * NUM_NODES / 2)
+ */
+#define ARRAY_SIZE (NUM_NODES * NUM_NODES / 2)
+//QITEM allocated[ARRAY_SIZE];
 QITEM allocated[100];
 QITEM *qHead = NULL;
+int notAll = 0;
 
 int g_qCount = 0;
 NODE rgnNodes[NUM_NODES];
@@ -37,21 +50,20 @@ void print_path (NODE *rgnNodes, int chNode)
     {
       print_path(rgnNodes, rgnNodes[chNode].iPrev);
     }
-  //printf (" %d", chNode);
-  fflush(stdout);
+  printf (" %d\n", chNode);
+  //fflush(stdout);
 }
 
 void enqueue (int iNode, int iDist, int iPrev)
 {
-  static int notAll = 0;
   QITEM *qNew = &allocated[notAll];
   notAll++;
   QITEM *qLast = qHead;
   
-  if (!qNew) 
+  if (notAll >= ARRAY_SIZE) 
     {
-      //printf("Out of memory.\n");
-      exit(1);
+      printf("Out of memory.\n");
+      return;
     }
   qNew->iNode = iNode;
   qNew->iDist = iDist;
@@ -96,7 +108,7 @@ int qcount (void)
 
 int dijkstra(int chStart, int chEnd) 
 {
-  
+  notAll = 0;
 
   for (ch = 0; ch < NUM_NODES; ch++)
     {
@@ -141,8 +153,7 @@ int dijkstra(int chStart, int chEnd)
 
 int main(int argc, char *argv[]) {
   int i,j;
-  initLED();
-  LED(1);
+  printf("1\n");
    /* make a fully connected matrix */
    // see input.h
   /* finds 10 shortest paths between nodes */
@@ -150,6 +161,6 @@ int main(int argc, char *argv[]) {
 			j=j%NUM_NODES;
       dijkstra(i,j);
   }
-  LED(1);
+  printf("DONE\n");
   return 0;
 }
