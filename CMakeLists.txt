@@ -8,7 +8,7 @@ include_directories(
 )
 
 add_subdirectory(aes)
-add_subdirectory(dijkstra)
+#add_subdirectory(dijkstra) #TOO Big
 add_subdirectory(picojpeg)
 add_subdirectory(rsa)
-
+add_subdirectory(stringsearch)

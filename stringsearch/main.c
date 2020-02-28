@@ -15,7 +15,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <limits.h>
-#include "../bareBench.h"
+//#include "../bareBench.h"
 
 static size_t table[UCHAR_MAX + 1];
 static size_t len;
@@ -1695,7 +1695,7 @@ NULL};
       int i;
       int y;
 
-      for(y = 0; y < 50; ++y)
+      for(y = 0; y < 1; ++y)
       {
       for (i = 0; find_strings[i]; i++)
       {
