@@ -48,7 +48,7 @@
 //#include <arpa/inet.h>
 
 #include "patricia.h"
-#include "../bareBench.h"
+//#include "../bareBench.h"
 #include "input.h"
 #include <ctype.h>
 
@@ -56,15 +56,17 @@ struct in_addr {
     unsigned long s_addr;  // load with inet_aton()
 };
 
-int isascii(char c) { return 1;}
+int isascii(char c) 
+{ 
+  return 1;
+}
 
 unsigned int htonl(unsigned int x)
 {
     return x;
 }
 
-int
-inet_aton(const char *cp, struct in_addr *addr)
+int inet_aton(const char *cp, struct in_addr *addr)
 {
     register unsigned int val;
     register int base, n;

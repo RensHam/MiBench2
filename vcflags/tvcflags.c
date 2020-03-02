@@ -1,10 +1,10 @@
 
-#include "../bareBench.h"
+//#include "../bareBench.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void PUT32 ( unsigned int, unsigned int );
+//void PUT32 ( unsigned int, unsigned int );
 
 #define CPSR_C (1<<29)
 #define CPSR_V (1<<28)
@@ -21,24 +21,27 @@ void add_test ( unsigned int ra, unsigned int rb )
 {
     unsigned int rc,rd;
 
-    PUT32(UART_BASE,ra);
-    PUT32(UART_BASE,rb);
+	printf("%d - %d\n", ra,rb);
+//    PUT32(UART_BASE,ra);
+//    PUT32(UART_BASE,rb);
     rc=testfun1(ra,rb);
     rd=testfun2(ra,rb);
-    PUT32(UART_BASE,rc&0x30000000);
-    PUT32(UART_BASE,rd&0x30000000);
+	printf("%d - %d\n", rc&0x30000000,rd&0x30000000);
+//    PUT32(UART_BASE,rc&0x30000000);
+//    PUT32(UART_BASE,rd&0x30000000);
 }
 
 void sub_test ( unsigned int ra, unsigned int rb )
 {
     unsigned int rc,rd;
-
-    PUT32(UART_BASE,ra);
-    PUT32(UART_BASE,rb);
+	printf("%d - %d\n", ra,rb);
+//    PUT32(UART_BASE,ra);
+//    PUT32(UART_BASE,rb);
     rc=testfun3(ra,rb);
     rd=testfun4(ra,rb);
-    PUT32(UART_BASE,rc&0x30000000);
-    PUT32(UART_BASE,rd&0x30000000);
+	printf("%d - %d\n", rc&0x30000000,rd&0x30000000);
+//    PUT32(UART_BASE,rc&0x30000000);
+//    PUT32(UART_BASE,rd&0x30000000);
 }
 
 int main ( void )

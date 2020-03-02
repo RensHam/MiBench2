@@ -301,7 +301,7 @@ typedef float      TOTAL_TYPE; /* for my PowerPC accelerator only */
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "../bareBench.h"
+//#include "../bareBench.h"
 #include "input_small.h"
 
 int argc = 4;
@@ -313,7 +313,7 @@ char *argv[] = {"susan", "input.pgm", "output.pgm", "-s"};
 #define  FTOI(a) ( (a) < 0 ? ((int)(a-0.5)) : ((int)(a+0.5)) )
 typedef  unsigned char uchar;
 typedef  struct {int x,y,info, dx, dy, I;} CORNER_LIST[MAX_CORNERS];
-static uint8_t *fakeFile;
+static uint *fakeFile;
 static unsigned char setbrightness[516];
 static uchar smoothening[9810];
 static unsigned char smoothening2[225];
