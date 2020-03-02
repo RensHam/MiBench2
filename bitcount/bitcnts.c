@@ -10,10 +10,10 @@
 #include <stdlib.h>
 #include "conio.h"
 #include <limits.h>
-#include <time.h>
+//#include <time.h>
 #include <float.h>
 #include "bitops.h"
-#include "../bareBench.h"
+//#include "../bareBench.h"
 
 #define FUNCS  7
 
@@ -21,8 +21,7 @@ static int CDECL bit_shifter(long int x);
 
 int main(void)
 {
-  clock_t start, stop;
-  double ct, cmin = DBL_MAX, cmax = 0;
+  double cmin = DBL_MAX, cmax = 0;
   int i, cminix, cmaxix;
   long j, n, seed;
   int iterations;
@@ -47,28 +46,16 @@ int main(void)
     "Shift and count bits"
   };
 
-  iterations=1125000;
+  iterations=50000;
   
   puts("Bit counter algorithm benchmark\n");
   
   for (i = 0; i < FUNCS; i++) {
-    start = clock();
     
     for (j = n = 0, seed = rand(); j < iterations; j++, seed += 13)
 	 n += pBitCntFunc[i](seed);
     
-    stop = clock();
-    ct = (stop - start) / (double)CLOCKS_PER_SEC;
-    if (ct < cmin) {
-	 cmin = ct;
-	 cminix = i;
-    }
-    if (ct > cmax) {
-	 cmax = ct;
-	 cmaxix = i;
-    }
-    
-    printf("%-38s> Time: %7.3f sec.; Bits: %ld\n", text[i], ct, n);
+    printf("%-38s> Time: sec.; Bits: %ld\n", text[i], n);
   }
   printf("\nBest  > %s\n", text[cminix]);
   printf("Worst > %s\n", text[cmaxix]);
