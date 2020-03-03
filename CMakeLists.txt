@@ -10,13 +10,23 @@ include_directories(
 add_subdirectory(aes)
 #add_subdirectory(adpcm_encode) #Too big
 add_subdirectory(basicmath) #Nice one
-add_subdirectory(bitcount)
+add_subdirectory(bitcount) #Nice one
+#add_subdirectory(blowfish) #Too big
+add_subdirectory(crc)
 #add_subdirectory(dijkstra) #TOO Big
+add_subdirectory(fft) # Nice one
+add_subdirectory(limits) # Nice one
+#add_subdirectory(lzfx) #Too big
+#add_subdirectory(overflow) #incomplete
+#add_subdirectory(patricia) #Too big
 add_subdirectory(picojpeg) #0.36sec
+#add_subdirectory(qsort) #Too big
+add_subdirectory(randmath)
+#add_subdirectory(rc4) #Illiegal data requests
+#add_subdirectory(regress) #ASM is not riscv
 add_subdirectory(rsa)
+#add_subdirectory(sha) #Too big
 add_subdirectory(stringsearch) #Nice one
 #add_subdirectory(susan) #Too big
-#add_subdirectory(patricia)
-add_subdirectory(randmath)
 #add_subdirectory(vcflags) #Incomplete
 

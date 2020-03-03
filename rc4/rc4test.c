@@ -4,9 +4,9 @@
 
 #include "testdata.h"
 
-void hexstring ( unsigned int d ); //printf("%08X\n");
-void hexstrings ( unsigned int d ); //printf("%08X ");
-void hexstringcr ( unsigned int d ); //printf("%08X\r");
+void hexstring ( unsigned int d ) {printf("%08X\n",d);}
+void hexstrings ( unsigned int d ) {printf("%09X\n",d);}
+void hexstringcr ( unsigned int d ) {printf("%10X\n",d);}
 
 void *memcpy(void *str1, const void *str2, unsigned int n)
 {

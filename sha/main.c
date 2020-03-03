@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
-#include "../bareBench.h"
+//#include <time.h>
+//#include "../bareBench.h"
 #include "sha.h"
 #include "input.h"
 

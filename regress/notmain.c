@@ -1,20 +1,11 @@
-#include "../bareBench.h"
+//#include "../bareBench.h"
 
 //------------------------------------------------------------------------
-//------------------------------------------------------------------------
-void PUT32 ( unsigned int, unsigned int);
-
 
 int regression ( void );
 
 
 #define THUL_UART_BASE 0xE0000000
-//------------------------------------------------------------------------
-void uart_putc ( unsigned int c )
-{
-    PUT32(THUL_UART_BASE+0x0,c);
-}
-//------------------------------------------------------------------------
 void hexstring ( unsigned int d )
 {
     //unsigned int ra;
@@ -27,11 +18,11 @@ void hexstring ( unsigned int d )
         rb-=4;
         rc=(d>>rb)&0xF;
         if(rc>9) rc+=0x37; else rc+=0x30;
-        uart_putc(rc);
+        printf("%d\n", rc);
         if(rb==0) break;
     }
-    uart_putc(0x0D);
-    uart_putc(0x0A);
+    printf("0x0D");
+    printf("0x0A");
 }
 //------------------------------------------------------------------------
 int main ( void )

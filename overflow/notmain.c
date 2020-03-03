@@ -1,28 +1,14 @@
-#include "../bareBench.h"
+//#include "../bareBench.h"
 
 unsigned int atest ( unsigned int, unsigned int );
 unsigned int stest ( unsigned int, unsigned int );
 
 
-
-
-//------------------------------------------------------------------------
-//------------------------------------------------------------------------
-void PUT32 ( unsigned int, unsigned int);
-#define THUL_UART_BASE 0xE0000000
-//------------------------------------------------------------------------
-void uart_send ( unsigned int c )
-{
-    PUT32(THUL_UART_BASE+0x0,c);
-}
-//------------------------------------------------------------------------
-
-
 void show_op ( unsigned int x )
 {
-    if(x&2) uart_send(0x31); else uart_send(0x30);
-    if(x&1) uart_send(0x31); else uart_send(0x30);
-    uart_send(0x20);
+    if(x&2) printf("0x31\n"); else printf("0x30\n");
+    if(x&1) printf("0x31\n"); else printf("0x30\n");
+    printf("0x20\n");
 }
 //------------------------------------------------------------------------
 int main ( void )
@@ -34,9 +20,9 @@ int main ( void )
     unsigned int re;
 
 
-    uart_send(0x0D);
-    uart_send(0x0A);
-    uart_send(0x0A);
+    printf("0x0D\n");
+    printf("0x0A\n");
+    printf("0x0A\n");
 
     rd=0x0432;
     re=0x0137;
@@ -48,21 +34,21 @@ int main ( void )
             rc=atest(ra<<30,rb<<30);
             show_op(ra);
             show_op(rb);
-            if(rc&1) uart_send(0x31); else uart_send(0x30);
-            if(rd&0x8000) uart_send(0x31); else uart_send(0x30);
+            if(rc&1) printf("0x31\n"); else printf("0x30\n");
+            if(rd&0x8000) printf("0x31\n"); else printf("0x30\n");
             rd<<=1;
-            uart_send(0x20);
-            if(rc&2) uart_send(0x31); else uart_send(0x30);
-            if(re&0x8000) uart_send(0x31); else uart_send(0x30);
+            printf("0x20\n");
+            if(rc&2) printf("0x31\n"); else printf("0x30\n");
+            if(re&0x8000) printf("0x31\n"); else printf("0x30\n");
             re<<=1;
-            uart_send(0x0D);
-            uart_send(0x0A);
+            printf("0x0D\n");
+            printf("0x0A\n");
         }
     }
 
-    uart_send(0x0D);
-    uart_send(0x0A);
-    uart_send(0x0A);
+    printf("0x0D\n");
+    printf("0x0A\n");
+    printf("0x0A\n");
 
     rd=0x2340;
     re=0x8CEF;
@@ -71,34 +57,26 @@ int main ( void )
     {
         for(rb=0;rb<4;rb++)
         {
-            rc=stest(ra<<30,rb<<30);
+            rc=atest(ra<<30,rb<<30);
             show_op(ra);
             show_op(rb);
-            if(rc&1) uart_send(0x31); else uart_send(0x30);
-            if(rd&0x8000) uart_send(0x31); else uart_send(0x30);
+            if(rc&1) printf("0x31\n"); else printf("0x30\n");
+            if(rd&0x8000) printf("0x31\n"); else printf("0x30\n");
             rd<<=1;
-            uart_send(0x20);
-            if(rc&2) uart_send(0x31); else uart_send(0x30);
-            if(re&0x8000) uart_send(0x31); else uart_send(0x30);
+            printf("0x20\n");
+            if(rc&2) printf("0x31\n"); else printf("0x30\n");
+            if(re&0x8000) printf("0x31\n"); else printf("0x30\n");
             re<<=1;
             rc=ra-rb;
-            if(rc&4) uart_send(0x30); else uart_send(0x31);
-            uart_send(0x0D);
-            uart_send(0x0A);
+            if(rc&4) printf("0x30\n"); else printf("0x31\n");
+            printf("0x0D\n");
+            printf("0x0A\n");
         }
     }
 
-    uart_send(0x0D);
-    uart_send(0x0A);
-    uart_send(0x0A);
-
-
-
-
-
-
-
-
+    printf("0x0D\n");
+    printf("0x0A\n");
+    printf("0x0A\n");
 
 
     return(0);

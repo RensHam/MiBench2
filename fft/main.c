@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "fourier.h"
-#include "../bareBench.h"
+//#include "../bareBench.h"
 
 int invfft=0;
 unsigned MAXSIZE; // small 4096, 8192 inverse, 512 for memory-limited systems
