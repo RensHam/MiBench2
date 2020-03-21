@@ -15,7 +15,7 @@ add_subdirectory(bitcount) #Nice one
 add_subdirectory(crc)
 #add_subdirectory(dijkstra) #TOO Big
 add_subdirectory(fft) # Nice one
-add_subdirectory(limits) # Nice one
+add_subdirectory(limits)
 #add_subdirectory(lzfx) #Too big
 #add_subdirectory(overflow) #incomplete
 #add_subdirectory(patricia) #Too big

@@ -2316,3 +2316,5 @@ unsigned char pjpeg_decode_init(pjpeg_image_info_t *pInfo, pjpeg_need_bytes_call
 
    return 0;
 }
+
+
