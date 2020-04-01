@@ -30,7 +30,7 @@ int main() {
 
    TPRA = 0x0;
    TIRA = 0x0;
-   TOCRA = 1200000; 
+   TOCRA = 600000; 
    TPRA = 0x1;
 
     MAXSIZE = 128;
@@ -42,8 +42,8 @@ int main() {
    TPRA = 0x0;
    ECP = 0x1;
    int_disable();
-for(int runs = 0; runs < 269; runs++) //805/3
-ISR_TA_CMP();
+//for(int runs = 0; runs < 270; runs+=2) //805/3
+//ISR_TA_CMP();
     return 0;
 }
 
@@ -127,10 +127,14 @@ printf("ImagOut:\n");
 void __attribute__((optimize("O0"))) ISR_TA_CMP(void) { 
  ICP = (1 << 29); 
 static int i = 1048572; 
-for (int x = 0; x < 4; x++) {
 i += 4; 
  asm volatile ( 
  "mv	x5, %0\n" // should be x5 = i; 
+"li x28, 0 \n" 
+"li x9, 3 \n" 
+"j check \n" 
+"flip:\n" 
+ " addi x28, x28, 1\n" 
 "lw	x6, 0(x5)\n" // Load i a = *i;
 "not	x6, x6\n" // a = ~a;
 "sw	x6, 0(x5)\n" // * i = a;
@@ -899,6 +903,15 @@ i += 4;
 "lw	x6, 1020(x5)\n" // Load i a = *i;
 "not	x6, x6\n" // a = ~a;
 "sw	x6, 1020(x5)\n" // * i = a;
+"addi x5, x5, 1024\n" 
+"check:\n" 
+ "ble x28, x9, flip\n" 
+"mv x5, %0\n" // should be x5 = i; 
+"li x28, 0 \n" 
+"li x9, 3 \n" 
+"j check2 \n" 
+"revert:\n" 
+ "addi x28, x28, 1\n" 
 "lw	x6, 0(x5)\n" // Load i a = *i;
 "not	x6, x6\n" // a = ~a;
 "sw	x6, 0(x5)\n" // * i = a;
@@ -1667,9 +1680,11 @@ i += 4;
 "lw	x6, 1020(x5)\n" // Load i a = *i;
 "not	x6, x6\n" // a = ~a;
 "sw	x6, 1020(x5)\n" // * i = a;
-:"=r"(i) : : "x5", "x6", "x7");
-i += 1020; 
-}
+"addi x5, x5, 1024\n" 
+"check2:\n" 
+ "ble x28, x9, revert\n" 
+:"=r"(i) : : "x5", "x6", "x7", "x28", "x9");
+i += 8188; 
 if (i > 1073151) { i = 1048572;} //Flip arround memory should not be 2047 because of +4 at beginning 
 TIRA = 0x0;
 }
